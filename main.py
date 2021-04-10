@@ -38,7 +38,9 @@ def main():
     import requests
     import pandas
     main_api = 'https://maps.googleapis.com/maps/api/geocode/json?'
-    key = input("Please Enter your API Key: ") #--Key--AIzaSyBqnprE96SJ9idp_kDOmlHw9rl9iTD_KUY
+      
+    key = input("Please Enter your API Key: ") #YOUR API KEY WILL BE LISTED IN THE Google Cloud: https://console.cloud.google.com/apis/credentials
+   
     address = input("Please enter the Address: ")
     url = main_api + urllib.parse.urlencode({'address': address, 'key' : key})
     print(url)
