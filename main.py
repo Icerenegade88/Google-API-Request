@@ -36,7 +36,7 @@ def installwindows():
     for module in modules:
         try:
             print(f"Installing: {color.YELLOW + module + color.END}")
-            subprocess.check_output(f"sudo python -m pip install {module}", stderr=subprocess.STDOUT, shell=True)
+            subprocess.check_output(f"pip install {module}", stderr=subprocess.STDOUT, shell=True)
         except:
             print(color.YELLOW + f"Please make sure you have the most recent version of python or these modules are correct {modules}" + color.END)
             print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
@@ -47,11 +47,25 @@ def installwindows():
 
 def main():
     import platform
+    import os
+    import subprocess
+    pythonver = output = subprocess.check_output("python -V", shell=True)
+    pythonver = pythonver.decode("utf-8")
     system_report = platform.system()
     if system_report == "Linux" or system_report == "linux":
-        installlinux()
+        os.system('sudo python3 -m pip install regex')
+        import regex
+        os.system('sudo python3 -m pip install regex')
+        if regex.match(r'Python 3\.([8-9]|([1-9][0-9])?)\.([2-9]|([1-9][0-9])?)', pythonver):
+            installlinux()
     else:
-        installwindows()
+        os.system('pip install regex')
+        import regex
+        if regex.match(r'Python 3\.([8-9]|([1-9][0-9])?)\.([2-9]|([1-9][0-9])?)', pythonver):
+            installwindows()
+        else:
+            print("You have an outdated version of python please consider updating to 3.8 or later")
+        
     
     
     import urllib.parse
