@@ -49,7 +49,7 @@ def main():
     import platform
     import os
     import subprocess
-    pythonver = output = subprocess.check_output("python -V", shell=True)
+    pythonver = subprocess.check_output("python -V", shell=True)
     pythonver = pythonver.decode("utf-8")
     system_report = platform.system()
     if system_report == "Linux" or system_report == "linux":
