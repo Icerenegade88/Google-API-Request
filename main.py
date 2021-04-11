@@ -12,28 +12,48 @@ class color:
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
-
-
-
-def install():
+## IN LINUX IT WILL ONLY USE PYTHON3 IF YOU HAVE A DEPRICATED VERSION OF PYTHON YOU NEED TO CHANGE THE COMMAND IN CODE
+def installlinux():
     import os
     import subprocess
     modules=['requests', 'pandas', 'ipywidgets']
-    try:
-        for module in modules:
+    for module in modules:
+        try:
             print(f"Installing: {color.YELLOW + module + color.END}")
-            subprocess.check_output(f"pip install {module}", stderr=subprocess.STDOUT, shell=True)
-    except:
-        print(color.YELLOW + f"Please make sure you have the most recent version of python or these modules are correct {modules}" + color.END)
-        print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
-        print(color.RED+ "##################################################################" + color.END)
-        #failedmodule = f"This module failed: {module}"
-        exit(color.RED + f"This module failed: {module}" + color.END) 
+            subprocess.check_output(f"sudo python3 -m pip install {module}", stderr=subprocess.STDOUT, shell=True)
+        except:
+            print(color.YELLOW + f"Please make sure you have the most recent version of python or these modules are correct {modules}" + color.END)
+            print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
+            print(color.RED+ "##################################################################" + color.END)
+            exit(color.RED + f"This module failed: {module}" + color.END) 
+    return()
+
+
+def installwindows():
+    import os
+    import subprocess
+    modules=['requests', 'pandas', 'ipywidgets']
+    for module in modules:
+        try:
+            print(f"Installing: {color.YELLOW + module + color.END}")
+            subprocess.check_output(f"sudo python -m pip install {module}", stderr=subprocess.STDOUT, shell=True)
+        except:
+            print(color.YELLOW + f"Please make sure you have the most recent version of python or these modules are correct {modules}" + color.END)
+            print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
+            print(color.RED+ "##################################################################" + color.END)
+            exit(color.RED + f"This module failed: {module}" + color.END) 
     return()
 
 
 def main():
-    install()
+    import platform
+    system_report = platform.system()
+    if system_report == "Linux" or system_report == "linux":
+        installlinux()
+    else:
+        installwindows()
+    
+    
     import urllib.parse
     import requests
     import pandas
