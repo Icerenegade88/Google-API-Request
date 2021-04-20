@@ -53,7 +53,7 @@ def main():
         if regex.match(r'Python 3\.([8-9]|([1-9][0-9])?)\.([2-9]|([1-9][0-9])?)', pythonver):
             installlinux()
     else:
-        os.system('pip install regex')
+        os.system('python -m pip install regex')
         import regex
         if regex.match(r'Python 3\.([8-9]|([1-9][0-9])?)\.([2-9]|([1-9][0-9])?)', pythonver):
             installwindows()
