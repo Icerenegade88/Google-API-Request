@@ -18,13 +18,13 @@ def installlinux():
     modules=['requests', 'pandas', 'ipywidgets', 'IPython']
     for module in modules:
         try:
-            print(f"Installing: {color.YELLOW + module + color.END}")
             subprocess.check_output(f"sudo python3 -m pip install {module}", stderr=subprocess.STDOUT, shell=True)
+            print(f"{color.YELLOW + module + color.END} *OK*")
         except:
             print(color.YELLOW + f"Please make sure you have the most recent version of python or these modules are correct {modules}" + color.END)
             print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
             print(color.RED+ "##################################################################" + color.END)
-            exit(color.RED + f"This module failed: {module}" + color.END) 
+            exit(color.RED + f"{module} *FAILED*" + color.END) 
     return()
 def installwindows():
     import os
@@ -32,13 +32,13 @@ def installwindows():
     modules=['requests', 'pandas', 'ipywidgets', 'IPython']
     for module in modules:
         try:
-            print(f"Installing: {color.YELLOW + module + color.END}")
             subprocess.check_output(f"pip install {module}", stderr=subprocess.STDOUT, shell=True)
+            print(f"{color.YELLOW + module + color.END}" + color.GREEN + " *OK* " + color.END)
         except:
             print(color.YELLOW + f"Please make sure you have the most recent version of python or these modules are correct {modules}" + color.END)
             print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
             print(color.RED+ "##################################################################" + color.END)
-            exit(color.RED + f"This module failed: {module}" + color.END) 
+            exit(color.RED + f"{module} *FAILED*" + color.END) 
     return()
 def version_check():
     import platform
@@ -60,14 +60,14 @@ def version_check():
             installwindows()
         else:
             print("You have an outdated version of python please consider updating to 3.8 or later")
-    return print(f"Version: *OK* {system_report} {pythonver}")
+    return print(f"Version: {system_report} {pythonver}" + color.GREEN + " *OK* " + color.END)
 def pd_setup():
     import pandas as pd
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.width', None)
     pd.set_option('display.max_colwidth', None)
-    return print("Pandas Setup: *OK*")
+    return print("Pandas Setup: " + color.GREEN + " *OK* " + color.END)
 def main():
     import urllib3
     import urllib.parse
