@@ -1,4 +1,5 @@
 #This will automatically install all modules required
+import build_url
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -14,7 +15,7 @@ class color:
 def installlinux():
     import os
     import subprocess
-    modules=['requests', 'pandas', 'ipywidgets']
+    modules=['requests', 'pandas', 'ipywidgets', 'IPython']
     for module in modules:
         try:
             print(f"Installing: {color.YELLOW + module + color.END}")
@@ -28,7 +29,7 @@ def installlinux():
 def installwindows():
     import os
     import subprocess
-    modules=['requests', 'pandas', 'ipywidgets']
+    modules=['requests', 'pandas', 'ipywidgets', 'IPython']
     for module in modules:
         try:
             print(f"Installing: {color.YELLOW + module + color.END}")
@@ -39,7 +40,7 @@ def installwindows():
             print(color.RED+ "##################################################################" + color.END)
             exit(color.RED + f"This module failed: {module}" + color.END) 
     return()
-def main():
+def version_check():
     import platform
     import os
     import subprocess
@@ -59,16 +60,53 @@ def main():
             installwindows()
         else:
             print("You have an outdated version of python please consider updating to 3.8 or later")
+    return print(f"Version: *OK* {system_report} {pythonver}")
+def pd_setup():
+    import pandas as pd
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.width', None)
+    pd.set_option('display.max_colwidth', None)
+    return print("Pandas Setup: *OK*")
+def main():
+    import urllib3
     import urllib.parse
     import requests
     import pandas
-    main_api = 'https://maps.googleapis.com/maps/api/geocode/json?'
-    key = input("Please Enter your API Key: ") #YOUR API KEY WILL BE LISTED IN THE Google Cloud: https://console.cloud.google.com/apis/credentials
-    address = input("Please enter the Address: ")
-    url = main_api + urllib.parse.urlencode({'address': address, 'key' : key})
+    import json
+    from IPython.display import display
+    
+    pd_setup()
+    
+    version_check()
+    
+    http = urllib3.PoolManager()
+    
+    url = build_url.first_url.full_url()
     print(url)
-    json_data = requests.get(url).json()
-    json_status = json_data['status']
+    json_data = http.request('GET', f'{url}')
+    df = json.loads(json_data.data.decode('utf-8'))
+    
+    json_status = df['status']
+    #Checking API JSON Status
+    if json_status == 'OK':
+        df = pandas.json_normalize(df['results'])
+        
+        lat = df['geometry.location.lat'] #I SPENT TWO HOURS TRYING TO FIGURE OUT HOW TO TURN A SERIES ITEM TO AN INT BECAUSE FOR SOME RESON IF YOU PRINT THIS
+        lng = df['geometry.location.lng'] #IT WILL COME BACK AS A SERIES AND STILL HOLD A FLOAT VALUE BUT MESS UP THE PRINT STATEMENT
+
+        #### THIS CONVERTS THE SERIES ITEMS INTO A FLOAT BECAUSE IT WAS BEING STUPID AND I DONT KNOW A BETTER WAY
+        lat = lat.tolist()
+        lng = lng.tolist()
+        for la in lat:
+            lat = float(la)
+        for ln in lng:
+            lng = float(ln)
+        ############################################################################################################
+        display(df[['formatted_address', 'geometry.location.lat', 'geometry.location.lng']])
+        lat = df['geometry.location.lat']
+    ###### WHAT IS ABOVE IS MUCH BETTER THAN THE GARBO I HAD TO DEAL WITH BELOW ############
+    '''
     #Checking API
     if json_status == 'OK':
         formatted_address= json_data['results'][0]['formatted_address']
@@ -77,4 +115,5 @@ def main():
         lng = json_data['results'][0]['geometry']['location']['lng']
         print(color.BOLD + formatted_address + color.END)
         print(color.RED + f"{lat}" + color.END, color.YELLOW + f"{lng}" + color.END)
+    '''
 main()
