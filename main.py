@@ -44,6 +44,7 @@ def version_check():
     import platform
     import os
     import subprocess
+    import sys
     pythonver = subprocess.check_output("python -V", shell=True)
     pythonver = pythonver.decode("utf-8")
     system_report = platform.system()
@@ -60,14 +61,14 @@ def version_check():
             installwindows()
         else:
             print("You have an outdated version of python please consider updating to 3.8 or later")
-    return print(f"Version: {system_report} {pythonver}" + color.GREEN + " *OK* " + color.END)
+    return print(f"{color.YELLOW}Version: {color.END}{color.PURPLE}{system_report} {pythonver}" + color.GREEN + "OK" + color.END)
 def pd_setup():
     import pandas as pd
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.width', None)
     pd.set_option('display.max_colwidth', None)
-    return print("Pandas Setup: " + color.GREEN + " *OK* " + color.END)
+    return print(color.YELLOW + "Pandas Setup: " +color.END + color.GREEN + "*OK*" + color.END)
 def main():
     import urllib3
     import urllib.parse
@@ -76,10 +77,10 @@ def main():
     import json
     from IPython.display import display
     
-    pd_setup()
-    
     version_check()
     
+    pd_setup()
+
     http = urllib3.PoolManager()
     
     url = build_url.first_url.full_url()
