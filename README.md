@@ -39,4 +39,4 @@ print(url) #will print it there will be more added in the future
 ```
 
 ## What is the testcode folder?
-The test code folder is to test code ive been working on that is unfinished or un-used
+The test code folder is to test code ive been working on that is unfinished or un-used as well as some references
