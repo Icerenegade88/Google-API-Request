@@ -3,7 +3,11 @@ Learning how to interact with Google API
 
 This may help newcomers out with understanding the interaction between python and Google API, this is also my learning process that might help you.
 
-## What is build_url.py
+## What does main.py do? 
+main.py is a script/program that uses Google's Geocoding API to let the user request addresses in JSON format that is then parsed and searched for the full address, and LAT,LNG coordinates to use in another program or in one of Google's other API's such as Google Maps.
+
+
+## What is build_url.py?
 
 ### Code
 ```python
@@ -33,3 +37,6 @@ import build_url
 url = build_url.first_url.full_url() #this will create your full url when it is called
 print(url) #will print it there will be more added in the future
 ```
+
+## What is the testcode folder?
+The test code folder is to test code ive been working on that is unfinished or un-used
