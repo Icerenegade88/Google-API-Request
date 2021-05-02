@@ -24,7 +24,7 @@ def installlinux():
             print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
             print(color.RED+ "##################################################################" + color.END)
             exit(color.RED + f"{module} *FAILED*" + color.END) 
-    return()
+    pd_setup()
 def installwindows():
     import os
     import subprocess
@@ -38,7 +38,7 @@ def installwindows():
             print(color.YELLOW + "If not you can download it here: https://www.python.org/downloads/ " + color.END)
             print(color.RED+ "##################################################################" + color.END)
             exit(color.RED + f"{module} *FAILED*" + color.END) 
-    return()
+    pd_setup()
 def version_check():
     import platform
     import os
@@ -84,7 +84,6 @@ def main():
     import json
     from IPython.display import display
     import build_url
-    pd_setup()
     http = urllib3.PoolManager()
     
     url = build_url.first_url.full_url()
