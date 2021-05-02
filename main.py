@@ -76,7 +76,7 @@ def pd_setup():
     return print(color.YELLOW + "Pandas Setup: " +color.END + color.GREEN + "*OK*" + color.END)
 def main():
     import time
-    time.sleep(15)
+    time.sleep(5)
     version_check()
     
     import urllib3
@@ -122,4 +122,5 @@ def main():
         print(color.BOLD + formatted_address + color.END)
         print(color.RED + f"{lat}" + color.END, color.YELLOW + f"{lng}" + color.END)
     '''
+
 main()
