@@ -3,6 +3,9 @@ Learning how to interact with Google API
 
 This may help newcomers out with understanding the interaction between python and Google API, this is also my learning process that might help you.
 
+# BEFORE ANYTHING
+##PLEASE MAKESURE YOU ARE USING PYTHON 3.8 OR HIGHER OTHERWISE THIS WILL NOT WORK
+
 ## What does main.py do? 
 main.py is a script/program that uses Google's Geocoding API to let the user request addresses in JSON format that is then parsed and searched for the full address, and LAT,LNG coordinates to use in another program or in one of Google's other API's such as Google Maps.
 
