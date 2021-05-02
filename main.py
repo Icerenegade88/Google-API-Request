@@ -14,7 +14,7 @@ class color:
 def installlinux():
     import os
     import subprocess
-    modules=['urllib3','requests', 'pandas', 'ipywidgets', 'IPython']
+    modules=['pandas', 'urllib3', 'requests', 'ipywidgets', 'IPython']
     for module in modules:
         try:
             subprocess.check_output(f"sudo python3 -m pip install {module}", stderr=subprocess.STDOUT, shell=True)
@@ -82,7 +82,6 @@ def main():
     import urllib3
     import urllib.parse
     import requests
-    import pandas
     import json
     from IPython.display import display
     import build_url
@@ -90,6 +89,7 @@ def main():
         
     url = build_url.first_url.full_url()
     print(url)
+    import pandas
     json_data = http.request('GET', f'{url}')
     df = json.loads(json_data.data.decode('utf-8'))
     
