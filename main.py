@@ -75,6 +75,8 @@ def pd_setup():
     pd.set_option('display.max_colwidth', None)
     return print(color.YELLOW + "Pandas Setup: " +color.END + color.GREEN + "*OK*" + color.END)
 def main():
+    import time
+    time.sleep(15)
     version_check()
     
     import urllib3
@@ -85,7 +87,7 @@ def main():
     from IPython.display import display
     import build_url
     http = urllib3.PoolManager()
-    
+        
     url = build_url.first_url.full_url()
     print(url)
     json_data = http.request('GET', f'{url}')
