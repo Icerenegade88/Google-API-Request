@@ -1,5 +1,4 @@
 #This will automatically install all modules required
-import build_url
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -15,7 +14,7 @@ class color:
 def installlinux():
     import os
     import subprocess
-    modules=['requests', 'pandas', 'ipywidgets', 'IPython']
+    modules=['urllib3','requests', 'pandas', 'ipywidgets', 'IPython']
     for module in modules:
         try:
             subprocess.check_output(f"sudo python3 -m pip install {module}", stderr=subprocess.STDOUT, shell=True)
@@ -29,7 +28,7 @@ def installlinux():
 def installwindows():
     import os
     import subprocess
-    modules=['requests', 'pandas', 'ipywidgets', 'IPython']
+    modules=['urllib3', 'requests', 'pandas', 'ipywidgets', 'IPython']
     for module in modules:
         try:
             subprocess.check_output(f"pip install {module}", stderr=subprocess.STDOUT, shell=True)
@@ -45,9 +44,15 @@ def version_check():
     import os
     import subprocess
     import sys
-    pythonver = subprocess.check_output("python -V", shell=True)
-    pythonver = pythonver.decode("utf-8")
     system_report = platform.system()
+
+    if system_report == 'Linux':
+        pythonver = subprocess.check_output("python3 -V", shell=True)
+        pythonver = pythonver.decode("utf-8")
+    else:
+        pythonver = subprocess.check_output("python -V", shell=True)
+        pythonver = pythonver.decode("utf-8")
+        
     if system_report == "Linux" or system_report == "linux":
         os.system('sudo python3 -m pip install regex')
         import regex
@@ -70,17 +75,19 @@ def pd_setup():
     pd.set_option('display.max_colwidth', None)
     return print(color.YELLOW + "Pandas Setup: " +color.END + color.GREEN + "*OK*" + color.END)
 def main():
+    
+    
+    version_check()
+    
+    pd_setup()
+
     import urllib3
     import urllib.parse
     import requests
     import pandas
     import json
     from IPython.display import display
-    
-    version_check()
-    
-    pd_setup()
-
+    import build_url
     http = urllib3.PoolManager()
     
     url = build_url.first_url.full_url()
