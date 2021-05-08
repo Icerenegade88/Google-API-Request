@@ -66,9 +66,14 @@ def version_check():
         pythonver = pythonver.decode("utf-8")
 
     if system_report == "Linux" or system_report == "linux":
-        os.system('sudo python3 -m pip install regex')
+        try:
+            os.system('sudo apt-get install -y python3-pip python-dev')
+            os.system('sudo python3 -m pip install --upgrade pip')
+            os.system('python3 -m pip install regex')
+        except:
+            os.system('sudo python3 -m pip install --upgrade pip')
+            os.system('python3 -m pip install regex')
         import regex
-        os.system('sudo python3 -m pip install regex')
         if regex.match(r'Python 3\.([8-9]|([1-9][0-9])?)\.([2-9]|([1-9][0-9])?)', pythonver):
             installlinux()
     else:
